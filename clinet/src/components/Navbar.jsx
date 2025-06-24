@@ -15,7 +15,7 @@ const  Navbar = () => {
         <img src={logo} alt="" className="h-[5em]" />
         </Link>
         <Link to={"/gallery"}>Gallery</Link>
-        <Link to={"/contact us"}>Contact Us</Link>
+        <Link to={"/contact"}>Contact Us</Link>
         <button className="border p-3 rounded-md" onClick={() => navigate("login")}>{" "}Login to Plan your event{" "}</button>
         </div>
       </>

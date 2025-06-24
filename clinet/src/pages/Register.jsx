@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 const Register =  () => {
 const navigate = useNavigate();
 
-const [registerData, setRegisterData] = useStatus({
+const [registerData, setRegisterData] = useState({
     fuLLName: "",
     emaiL: "",
     password: "",
     phone: "",
 })
 
-const handeLChange = (e) => {
+const handelChange = (e) => {
     const { name,value } = e.target;
 
     setRegisterData((previousData) => ({ ...previousData, [name]: value}))

@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Contact from "./pages/Contact";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/contact" element={<Contact />} />
     </Routes>
     </BrowserRouter>
 
