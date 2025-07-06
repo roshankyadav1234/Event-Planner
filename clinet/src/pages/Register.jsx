@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import entrance from "../assets/entrance.jpg";
 import { useNavigate } from "react-router-dom";
+import api from "../config/api";
+import {toast} from "react-hot-toast";
 
 const Register =  () => {
 const navigate = useNavigate();
 
 const [registerData, setRegisterData] = useState({
-    fuLLName: "",
-    emaiL: "",
+    fullName: "",
+    email: "",
     password: "",
     phone: "",
 })
@@ -18,17 +20,27 @@ const handelChange = (e) => {
     setRegisterData((previousData) => ({ ...previousData, [name]: value}))
 }
 
-const handelSubmit = (e) => {
+const handelSubmit = async (e) => {
     e.preventDefault();
 
     console.log(registerData);
-
-    setRegisterData({
-    fuLLName: "",
-    emaiL: "",
+    try{
+        const res = await  api.post("/auth/register",registerData);
+        toast.success(res.data.message)
+        setRegisterData({
+    fullName: "",
+    email: "",
     password: "",
     phone: "",
     })
+    } catch(error){
+       toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
+    }
+
 }
 
 return (

@@ -1,5 +1,6 @@
 import User from "../models/userModel.js"
 import bcrypt from "bcrypt"
+import JWT from "jsonwebtoken";
 
 
 
@@ -66,6 +67,8 @@ export const LoginUser = async (req,res,next)=>{
       error.statusCode=401;
       return next(error);
     }
+
+    genToken(user._id, res)
 
     res
       .status(200)

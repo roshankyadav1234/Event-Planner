@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import entrance from "../assets/entrance.jpg";
 import  { useNavigate } from "react-router-dom";
+import api from "../config/api";
+import {toast} from "react-hot-toast";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -9,11 +11,28 @@ const Login = () => {
     const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
 
-     const formSubmitkro = (e) => {
+     const formSubmitkro = async (e) => {
         e.preventDefault();
-        const logindata = { Email: email, Passeord: password,} 
-        console.log(logindata);
-     }
+ const logindata = {
+    email: email,
+    password: password,
+ };
+
+  try{
+        const res = await  api.post("/auth/login",logindata);
+         toast.success(res.data.message);
+        setPassword();
+        setEmail();
+        navigate('/userDashboard');
+    } catch(error){
+       toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
+    }
+        
+     };
     return (
         <>
         <div className="mt-[-10%] relative h-screen flex justify-center items-center">
@@ -27,7 +46,7 @@ const Login = () => {
                 <h2 className="text-3x1 text-center font-bold text-pink-500 mb-6 drop-shadow-md">
                     Login
                 </h2>
-                <from className="space-y-5" onSubmit={formSubmitkro}>
+                <form className="space-y-5" onSubmit={formSubmitkro}>
                     <div>
                         <label className="text-pink-500 block mb-1">Email</label>
                         <input type="email" className="w-full px-4 py-2 rounded-lg bg-white/20 text-black placeholder:text-gray-500 border border-yellow-400 focus:outline-none focus:ring-2 focus:ring-pink-300" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
@@ -38,7 +57,7 @@ const Login = () => {
 
                     </div>
                     <button type="submit" className="w-full bg-gradient-to-r from-pink-400 to-pink-600 text-[#0f172a] font-semibold py-2 rounded-x1 shadow-lg hover:scale-105 transition-transform duration-200">Sign In</button>
-                </from>
+                </form>
                 <p className="text-center text-sm text-black mt-6">
                     Don't have an account?{" "}
                     <span className="text-pink-400 underline cursor-pointer" onClick={() => navigate("/register")}>
