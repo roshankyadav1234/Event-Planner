@@ -21,16 +21,18 @@ const Login = () => {
   try{
         const res = await  api.post("/auth/login",logindata);
          toast.success(res.data.message);
-        setPassword();
-        setEmail();
+        setPassword("");
+        setEmail("");
         navigate('/userDashboard');
     } catch(error){
        toast.error(
-        `Error : ${error.response?.status || error.message} | ${
+        `Error : ${error.response?.status || error.message} | $ {
           error.response?.data.message || ""
         }`
       );
+      console.log(error);
     }
+    console.log(logindata);
         
      };
     return (

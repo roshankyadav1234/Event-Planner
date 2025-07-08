@@ -12,13 +12,13 @@ const [registerData, setRegisterData] = useState({
     email: "",
     password: "",
     phone: "",
-})
+});
 
 const handelChange = (e) => {
     const { name,value } = e.target;
 
-    setRegisterData((previousData) => ({ ...previousData, [name]: value}))
-}
+    setRegisterData((previousData) => ({ ...previousData, [name]: value}));
+};
 
 const handelSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ const handelSubmit = async (e) => {
     email: "",
     password: "",
     phone: "",
-    })
+    });
     } catch(error){
        toast.error(
         `Error : ${error.response?.status || error.message} | ${
@@ -41,7 +41,7 @@ const handelSubmit = async (e) => {
       );
     }
 
-}
+};
 
 return (
     <>

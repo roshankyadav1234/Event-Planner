@@ -1,8 +1,6 @@
 import User from "../models/userModel.js"
 import bcrypt from "bcrypt"
-import JWT from "jsonwebtoken";
-
-
+import genToken from "../utils/auth.js";
 
 
 export const RegisterUser =  async (req,res,next)=>{
@@ -14,11 +12,11 @@ export const RegisterUser =  async (req,res,next)=>{
 
  if(!fullName || !email || !phone || !password){
     const error = new Error("All Feilds Required");
-    error.statusCode=400
+    error.statusCode=400;
     return next(error);
  }
 
-const existingUser = await User.findOne({email})
+const existingUser = await User.findOne({email});
 if(existingUser){
     const error = new Error("Email Already Register");        
     error.statusCode=409;
@@ -35,7 +33,7 @@ const newUser = await User.create({
 });
 
 
-res.status(201).json({message:"Registration Successfull"})
+res.status(201).json({message:"Registration Successfull"});
   }
   catch(error){
     next(error);
@@ -55,7 +53,7 @@ export const LoginUser = async (req,res,next)=>{
 
     const user = await User.findOne({email});
     if(!user){
-      const error  =new Error("user Not Register");
+      const error  =new Error("User Not registerd");
       error.statusCode=400;
       return next(error);
     }
@@ -68,7 +66,7 @@ export const LoginUser = async (req,res,next)=>{
       return next(error);
     }
 
-    genToken(user._id, res)
+    genToken(user._id, res);
 
     res
       .status(200)
